@@ -22,10 +22,26 @@
         /* Custom styles for card hover effect */
         .tip-card {
             transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            cursor: pointer; /* Indicate that the card is clickable */
+            overflow: hidden; /* Hide overflowing content during transition */
         }
         .tip-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        /* Style for the advice content, initially hidden */
+        .tip-content {
+            max-height: 0; /* Start with no height */
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, opacity 0.3s ease-out; /* Smooth transition for height and opacity */
+            opacity: 0; /* Start invisible */
+            margin-top: 0; /* No margin when hidden */
+        }
+        /* Style when advice content is visible */
+        .tip-content.visible {
+            max-height: 200px; /* Max height to allow content to show (adjust if needed for longer text) */
+            opacity: 1; /* Fully visible */
+            margin-top: 1rem; /* Add margin when visible */
         }
     </style>
 </head>
@@ -37,100 +53,120 @@
                 📧 The "Oops, My Bad!" Top 10 Email Safety Survival Guide 🛡️
             </h1>
             <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-                Sending emails can feel like navigating a minefield. Fear not, intrepid communicator! Here are 10 tips to help you avoid those digital dangers and face-palm moments.
+                Sending emails can feel like navigating a minefield. Fear not, intrepid communicator! Here are 10 tips to help you avoid those digital dangers and face-palm moments. Click on each card to reveal the advice!
             </p>
         </header>
 
         <!-- Tips Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <!-- Tip 1: Bcc -->
-            <div class="tip-card bg-white p-6 rounded-2xl shadow-lg border border-blue-100 flex flex-col items-center text-center">
+            <div class="tip-card bg-white p-6 rounded-2xl shadow-lg border border-blue-100 flex flex-col items-center text-center" onclick="toggleCard(this)">
                 <span class="text-5xl mb-4">🤫</span>
                 <h3 class="text-2xl font-bold text-indigo-600 mb-2">The "Bcc" Brigade: Your Secret Weapon</h3>
-                <p class="text-gray-700">
-                    Use **Bcc (Blind Carbon Copy)** for mass emails. Avoid the dreaded "Reply-Allgeddon" and keep everyone's address private. Your sanity will thank you!
-                </p>
+                <div class="tip-content">
+                    <p class="text-gray-700">
+                        Use **Bcc (Blind Carbon Copy)** for mass emails. Avoid the dreaded "Reply-Allgeddon" and keep everyone's address private. Your sanity will thank you!
+                    </p>
+                </div>
             </div>
 
             <!-- Tip 2: Small Screens -->
-            <div class="tip-card bg-white p-6 rounded-2xl shadow-lg border border-blue-100 flex flex-col items-center text-center">
+            <div class="tip-card bg-white p-6 rounded-2xl shadow-lg border border-blue-100 flex flex-col items-center text-center" onclick="toggleCard(this)">
                 <span class="text-5xl mb-4">🤏</span>
                 <h3 class="text-2xl font-bold text-indigo-600 mb-2">Tiny Screens, Big Problems: Phone Phingers</h3>
-                <p class="text-gray-700">
-                    Beware the **fat-finger syndrome** on small devices. That tiny "send" button is a magnet for typos and accidental recipients. Magnifying glass recommended!
-                </p>
+                <div class="tip-content">
+                    <p class="text-gray-700">
+                        Beware the **fat-finger syndrome** on small devices. That tiny "send" button is a magnet for typos and accidental recipients. Magnifying glass recommended!
+                    </p>
+                </div>
             </div>
 
             <!-- Tip 3: Review Before Sending -->
-            <div class="tip-card bg-white p-6 rounded-2xl shadow-lg border border-blue-100 flex flex-col items-center text-center">
+            <div class="tip-card bg-white p-6 rounded-2xl shadow-lg border border-blue-100 flex flex-col items-center text-center" onclick="toggleCard(this)">
                 <span class="text-5xl mb-4">⏳</span>
                 <h3 class="text-2xl font-bold text-indigo-600 mb-2">The "Pause Before You Pounce" Principle</h3>
-                <p class="text-gray-700">
-                    Take a **five-second timeout** before hitting send. It's like pressing pause on a runaway train – it could save you from a digital derailment.
-                </p>
+                <div class="tip-content">
+                    <p class="text-gray-700">
+                        Take a **five-second timeout** before hitting send. It's like pressing pause on a runaway train – it could save you from a digital derailment.
+                    </p>
+                </div>
             </div>
 
             <!-- Tip 4: Shoulder Surfing -->
-            <div class="tip-card bg-white p-6 rounded-2xl shadow-lg border border-blue-100 flex flex-col items-center text-center">
+            <div class="tip-card bg-white p-6 rounded-2xl shadow-lg border border-blue-100 flex flex-col items-center text-center" onclick="toggleCard(this)">
                 <span class="text-5xl mb-4">🚫👀</span>
                 <h3 class="text-2xl font-bold text-indigo-600 mb-2">No Peeking, Private Percy!</h3>
-                <p class="text-gray-700">
-                    Don't let anyone "shoulder surf" your emails. Your private correspondence isn't a reality show for public consumption.
-                </p>
+                <div class="tip-content">
+                    <p class="text-gray-700">
+                        Don't let anyone "shoulder surf" your emails. Your private correspondence isn't a reality show for public consumption.
+                    </p>
+                </div>
             </div>
 
             <!-- Tip 5: Similar Names -->
-            <div class="tip-card bg-white p-6 rounded-2xl shadow-lg border border-blue-100 flex flex-col items-center text-center">
+            <div class="tip-card bg-white p-6 rounded-2xl shadow-lg border border-blue-100 flex flex-col items-center text-center" onclick="toggleCard(this)">
                 <span class="text-5xl mb-4">👯</span>
-                <h3 class="text-2xl font-bold text-indigo-600 mb-2">The "Who's That Guy Again?" Conundrum</h3>
-                <p class="text-gray-700">
-                    **Double-check names and initials**! Sending sensitive info to the wrong "John S." could lead to an awkward conversation, or worse, a data breach.
-                </p>
+                <h3 class="text-2xl font-bold text-indigo-600 mb-2">The "Who Are They Again?" Conundrum</h3>
+                <div class="tip-content">
+                    <p class="text-gray-700">
+                        **Double-check names and initials**! Sending sensitive info to the wrong "John S." could lead to an awkward conversation, or worse, a data breach.
+                    </p>
+                </div>
             </div>
 
             <!-- Tip 6: Disable Autocomplete -->
-            <div class="tip-card bg-white p-6 rounded-2xl shadow-lg border border-blue-100 flex flex-col items-center text-center">
+            <div class="tip-card bg-white p-6 rounded-2xl shadow-lg border border-blue-100 flex flex-col items-center text-center" onclick="toggleCard(this)">
                 <span class="text-5xl mb-4">❌✍️</span>
                 <h3 class="text-2xl font-bold text-indigo-600 mb-2">Google Autocomplete: Your Frenemy</h3>
-                <p class="text-gray-700">
-                    Consider **disabling autocomplete for email addresses**. It's better to type a few extra letters than to accidentally email your secret admirer list to your grandma.
-                </p>
+                <div class="tip-content">
+                    <p class="text-gray-700">
+                        Consider **disabling autocomplete for email addresses**. It's better to type a few extra letters than to accidentally email your secret admirer list to your grandma.
+                    </p>
+                </div>
             </div>
 
             <!-- Tip 7: Use Cloud Documents -->
-            <div class="tip-card bg-white p-6 rounded-2xl shadow-lg border border-blue-100 flex flex-col items-center text-center">
+            <div class="tip-card bg-white p-6 rounded-2xl shadow-lg border border-blue-100 flex flex-col items-center text-center" onclick="toggleCard(this)">
                 <span class="text-5xl mb-4">☁️🔗</span>
                 <h3 class="text-2xl font-bold text-indigo-600 mb-2">Attachments Away! Embrace the Cloud</h3>
-                <p class="text-gray-700">
-                    Use **Google Docs (or similar cloud services) with appropriate permissions** instead of attachments. Share the link, not the headache.
-                </p>
+                <div class="tip-content">
+                    <p class="text-gray-700">
+                        Use **Google Docs (or similar cloud services) with appropriate permissions** instead of attachments. Share the link, not the headache.
+                    </p>
+                </div>
             </div>
 
             <!-- Tip 8: Password Protect Attachments -->
-            <div class="tip-card bg-white p-6 rounded-2xl shadow-lg border border-blue-100 flex flex-col items-center text-center">
+            <div class="tip-card bg-white p-6 rounded-2xl shadow-lg border border-blue-100 flex flex-col items-center text-center" onclick="toggleCard(this)">
                 <span class="text-5xl mb-4">🔒📄</span>
                 <h3 class="text-2xl font-bold text-indigo-600 mb-2">Password Protect Your Precious Parcels</h3>
-                <p class="text-gray-700">
-                    When attachments are necessary, **slap a password on it!** It's like putting your important documents in a digital safe.
-                </p>
+                <div class="tip-content">
+                    <p class="text-gray-700">
+                        When attachments are necessary, **slap a password on it!** It's like putting your important documents in a digital safe.
+                    </p>
+                </div>
             </div>
 
             <!-- Tip 9: Share Only Necessary Data -->
-            <div class="tip-card bg-white p-6 rounded-2xl shadow-lg border border-blue-100 flex flex-col items-center text-center">
+            <div class="tip-card bg-white p-6 rounded-2xl shadow-lg border border-blue-100 flex flex-col items-center text-center" onclick="toggleCard(this)">
                 <span class="text-5xl mb-4">💎</span>
                 <h3 class="text-2xl font-bold text-indigo-600 mb-2">"Do I Really Need to Know That?"</h3>
-                <p class="text-gray-700">
-                    Only share personal data where it is **absolutely necessary**. Your personal information is like a precious gem – don't scatter it around willy-nilly.
-                </s>
+                <div class="tip-content">
+                    <p class="text-gray-700">
+                        Only share personal data where it is **absolutely necessary**. Your personal information is like a precious gem – don't scatter it around haphazardly.
+                    </p>
+                </div>
             </div>
 
             <!-- Tip 10: Delete Sensitive Emails -->
-            <div class="tip-card bg-white p-6 rounded-2xl shadow-lg border border-blue-100 flex flex-col items-center text-center">
+            <div class="tip-card bg-white p-6 rounded-2xl shadow-lg border border-blue-100 flex flex-col items-center text-center" onclick="toggleCard(this)">
                 <span class="text-5xl mb-4">🗑️✨</span>
-                <h3 class="text-2xl font-bold text-indigo-600 mb-2">The "Poof! It's Gone!" Deletion Dance</h3>
-                <p class="text-gray-700">
-                    Once sensitive information has served its purpose, **delete those emails!** Your inbox isn't a long-term storage facility for secrets.
-                </p>
+                <h3 class="text-2xl font-bold text-indigo-600 mb-2">The "Hey Presto! It's gone!" Deletion Dance</h3>
+                <div class="tip-content">
+                    <p class="text-gray-700">
+                        Once sensitive information has served its purpose, **delete those emails!** Your inbox isn't a long-term storage facility for secrets.
+                    </p>
+                </div>
             </div>
         </div>
 
@@ -139,5 +175,15 @@
             <p>&copy; 2025 Email Safety Squad. Stay secure, stay happy!</p>
         </footer>
     </div>
+
+    <script>
+        // JavaScript function to toggle the visibility of the advice content
+        function toggleCard(cardElement) {
+            // Find the .tip-content div within the clicked card
+            const content = cardElement.querySelector('.tip-content');
+            // Toggle the 'visible' class
+            content.classList.toggle('visible');
+        }
+    </script>
 </body>
 </html>
